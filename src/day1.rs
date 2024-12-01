@@ -20,6 +20,21 @@ fn distance(l:u32 , r:u32) -> u32 {
         r - l
     }
 }
+fn next(l:u32 , r:u32) -> u32 {
+    if l > r {
+        r
+    } else {
+        l
+    }
+}
+
+fn greater(l:u32 , r:u32) -> u32 {
+    if l > r {
+        l
+    } else {
+        r
+    }
+}
 #[aoc_generator(day1)]
 pub fn input_generator(input: &str) -> LocationLists {
     let mut left_locations = Vec::new();    
@@ -39,5 +54,25 @@ pub fn solve_part1(lists: &LocationLists) -> u32 {
     for i in 0..lists.left.len() {
         sum += distance(lists.left[i],lists.right[i]);
     }   
+    sum
+}
+
+#[aoc(day1, part2)]
+pub fn solve_part2( lists: &LocationLists) -> u32 {
+    let mut sum:u32  = 0;
+    let mut i = 0;
+    let mut j = 0;
+    let left = &lists.left; 
+    let right = &lists.right;
+    while i < left.len() && j < right.len() {
+        if left[i] < right[j] {
+            i += 1;
+        } else if left[i] == right[j] {
+            sum += left[i];
+            j += 1;
+        } else {
+            j += 1;
+        }
+    }
     sum
 }
